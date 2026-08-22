@@ -1,6 +1,8 @@
 import csv
 import os
 
+def check_answer(user_answer, correct_answer):
+    return user_answer.lower().strip() == correct_answer.lower().strip()
 
 print("This is Study Buddy...")
 
@@ -30,15 +32,20 @@ while True:
         if not os.path.exists("flashcards.csv"):
             print("No flashcards yet! Add some first.")
         else:
+            score = 0
+            total = 0
             with open("flashcards.csv") as file:
                 reader = csv.DictReader(file)
                 for row in reader:
                     print(f"question: {row['question']}")
-                    answer = input("Enter answer!: ").lower().strip()
-                    if answer == row['answer'].lower().strip():
+                    answer = input("Enter answer!: ")
+                    if check_answer(answer, row['answer']):
                         print("Correct!")
+                        score += 1
                     else:
                         print("Wrong!")
+                    total += 1
+                print(f"You got {score} out of {total}!")
         
     elif option == "c":
         print("goodbye!")
