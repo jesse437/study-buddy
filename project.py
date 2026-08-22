@@ -34,8 +34,8 @@ while True:
                 reader = csv.DictReader(file)
                 for row in reader:
                     print(f"question: {row['question']}")
-                    answer = input("Enter answer!: ")
-                    if answer == row['answer']:
+                    answer = input("Enter answer!: ").lower().strip()
+                    if answer == row['answer'].lower().strip():
                         print("Correct!")
                     else:
                         print("Wrong!")
@@ -47,3 +47,4 @@ while True:
         print("Invalid choice")
         
         
+    
