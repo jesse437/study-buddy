@@ -27,7 +27,19 @@ while True:
             
         
     elif option == "b":
-        print("coming soon!")
+        if not os.path.exists("flashcards.csv"):
+            print("No flashcards yet! Add some first.")
+        else:
+            with open("flashcards.csv") as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    print(f"question: {row['question']}")
+                    answer = input("Enter answer!: ")
+                    if answer == row['answer']:
+                        print("Correct!")
+                    else:
+                        print("Wrong!")
+        
     elif option == "c":
         print("goodbye!")
         break
