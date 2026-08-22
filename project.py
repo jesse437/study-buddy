@@ -4,6 +4,15 @@ import os
 def check_answer(user_answer, correct_answer):
     return user_answer.lower().strip() == correct_answer.lower().strip()
 
+def create_card(question, answer):
+    file_exists = os.path.exists("flashcards.csv")
+    with open("flashcards.csv", "a") as file:
+        writer = csv.DictWriter(file, fieldnames=["question", "answer"])
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow({"question": question, "answer": answer})
+    return True
+
 print("This is Study Buddy...")
 
 while True:
@@ -17,15 +26,7 @@ while True:
     if option == "a":
         question = input("Enter a question: ")
         answer = input("Enter an answer: ")
-        
-        file_exists = os.path.exists("flashcards.csv")
-        
-        
-        with open("flashcards.csv", "a") as file:
-            writer = csv.DictWriter(file, fieldnames=["question", "answer"])
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow({"question": question, "answer": answer})
+        create_card(question, answer)
             
         
     elif option == "b":
@@ -54,4 +55,5 @@ while True:
         print("Invalid choice")
         
         
-    
+if __name__ == "__main__":
+    main()
